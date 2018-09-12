@@ -2,6 +2,11 @@ var db = require("../models");
 var request = require("request");
 var cheerio = require("cheerio");
 
+var mongoose = require("mongoose");
+
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoscraperdb";
+mongoose.Promise = Promise;
+mongoose.connect(MONGODB_URI);
 
 module.exports = function (app) {
     // A GET route for scraping the reddit
