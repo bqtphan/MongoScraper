@@ -35,8 +35,8 @@ app.set("view engine", "handlebars");
 // mongoose.connect(MONGODB_URI);
 
 // Routes
-require("./routes/apiRoutes")(app);
-require("./routes/htmlRoutes")(app);
+require("./routes/apiroutes")(app);
+require("./routes/htmlroutes")(app);
 
 // Start the server
 app.listen(PORT, function () {
