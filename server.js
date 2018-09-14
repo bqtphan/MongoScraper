@@ -29,11 +29,6 @@ app.use(express.static("public"));
 app.engine("handlebars",exphbs({defaultLayout: "main"}));
 app.set("view engine", "handlebars");
 
-// Connect to the Mongo DB
-// var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoscraperdb";
-// mongoose.Promise = Promise;
-// mongoose.connect(MONGODB_URI);
-
 // Routes
 require("./routes/apiroutes")(app);
 require("./routes/htmlroutes")(app);

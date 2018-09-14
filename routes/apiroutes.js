@@ -11,6 +11,7 @@ mongoose.connect(MONGODB_URI);
 module.exports = function (app) {
     // A GET route for scraping the reddit
     app.get("/scrape", function (req, res) {
+        db.article.remove({});
 
         // First, we grab the body of the html with request
         request("https://old.reddit.com/r/news/", function (error, response, html) {
@@ -36,6 +37,7 @@ module.exports = function (app) {
                     title: title,
                     link: link
                 });
+                
                 db.article.create(results)
                     .then(function (dbarticle) {
                         // View the added result in the console
@@ -60,6 +62,16 @@ module.exports = function (app) {
                 res.json(err);
             });
     });
+
+    app.delete("/articles", function(req,res){
+        db.articles.deleteMany({}) 
+            .then(function(dbarticle){
+                res.json(dbarticle);
+            })
+            .catch(function(err){
+                res.json(err);
+            })
+    })
 
     // Route for getting all Articles from the db
     app.get("/savedarticles", function (req, res) {
@@ -104,7 +116,7 @@ module.exports = function (app) {
     });
 
     // Route for saving/updating an Article's associated Note
-    app.post("/saved/:id", function (req, res) {
+    app.post("/articles/:id", function (req, res) {
         // Create a new note and pass the req.body to the entry
         db.note.create(req.body)
             .then(function (dbnote) {
